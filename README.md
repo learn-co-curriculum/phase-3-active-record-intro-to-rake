@@ -100,7 +100,7 @@ So handy!
 It is possible to namespace your Rake tasks. What does "namespace" mean? A
 namespace is really just a way to group or contain something, in this case our
 Rake tasks. So, we might namespace a series of greeting Rake tasks, like
-`hello`, above, under the `greeting` heading.
+`hello` above, under the `greeting` heading.
 
 Let's take a look at namespacing now. Let's say we create another greeting-type
 Rake task, `hola`:
@@ -141,7 +141,7 @@ hola de Rake!
 ## Common Rake Tasks
 
 As we move towards developing Sinatra and Rails web applications, you'll begin
-to use some common Rake tasks that handle the certain database-related jobs.
+to use some common Rake tasks that handle certain database-related jobs.
 
 ### `rake db:migrate`
 
