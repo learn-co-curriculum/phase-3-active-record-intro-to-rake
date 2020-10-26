@@ -285,4 +285,4 @@ We did it!
 
 [jim weirich]: https://en.wikipedia.org/wiki/Jim_Weirich
 
-<p class='util--hide'>View <a href='https://learn.co/lessons/intro-to-rake'>Intro to Rake</a> on Learn.co and start learning to code for free.</p>
+
