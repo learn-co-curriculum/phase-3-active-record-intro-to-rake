@@ -1,10 +1,10 @@
 # Intro to Rake
 
-## Objectives
+## Learning Goals
 
-1.  Introduce Rake and Rake tasks.
-2.  Understand what Rake is used for in our Ruby programs.
-3.  Learn how to build a basic Rake task.
+- Introduce Rake and Rake tasks
+- Understand what Rake is used for in our Ruby programs
+- Learn how to build a basic Rake task
 
 ## What is Rake?
 
