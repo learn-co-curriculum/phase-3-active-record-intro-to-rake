@@ -1,4 +1,5 @@
-require 'sqlite3'
+require 'bundler/setup'
+Bundler.require
 
 require_relative "../lib/student"
 
