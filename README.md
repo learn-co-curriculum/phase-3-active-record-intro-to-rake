@@ -51,7 +51,7 @@ tool for Ruby.
 Building a Rake task is easy. All we need to do is create a file in the top
 level of our directory called `Rakefile`. Here we define our task:
 
-```ruby
+```rb
 task :hello do
   # the code we want to be executed by this task
 end
@@ -62,7 +62,7 @@ the code we want to execute.
 
 If you open up the `Rakefile` in this directory, you'll see our `:hello` task:
 
-```ruby
+```rb
 task :hello do
   puts "hello from Rake!"
 end
@@ -70,15 +70,12 @@ end
 
 Now, in your terminal in the directory of this project, type:
 
-```sh
-rake hello
-```
-
-You should see the following outputted to your terminal:
-
-```txt
+```console
+$ rake hello
 hello from Rake!
 ```
+
+You should see the text above outputted to your terminal.
 
 ### Describing our Tasks With `rake -T`
 
@@ -87,7 +84,7 @@ view a list of available Rake tasks and their descriptions. In order for
 `rake -T` to work though, we need to give our Rake tasks descriptions. Let's
 give our `hello` task a description now:
 
-```ruby
+```rb
 desc 'outputs hello to the terminal'
 task :hello do
   puts "hello from Rake!"
@@ -96,7 +93,8 @@ end
 
 Now, if we run `rake -T` in the terminal, we should see the following:
 
-```txt
+```console
+$ rake -T
 rake hello       # outputs hello to the terminal
 ```
 
@@ -112,7 +110,7 @@ above, under the `greeting` heading.
 Let's take a look at namespacing now. Let's say we create another greeting-type
 Rake task, `hola`:
 
-```ruby
+```rb
 desc 'outputs hola to the terminal'
 task :hola do
   puts "hola de Rake!"
@@ -121,7 +119,7 @@ end
 
 Now, let's namespace both `hello` and `hola` under the `greeting` heading:
 
-```ruby
+```rb
 namespace :greeting do
 desc 'outputs hello to the terminal'
   task :hello do
@@ -137,7 +135,7 @@ end
 
 Now, to use either of our Rake tasks, we use the following syntax:
 
-```bash
+```console
 $ rake greeting:hello
 hello from Rake!
 
@@ -150,7 +148,7 @@ hola de Rake!
 One common issue with Rake is the following: you run a Rake task, like
 `rake greeting:hello`, and see an output like this:
 
-```sh
+```console
 $ rake greeting:hello
 rake aborted!
 Gem::LoadError: You have already activated rake 10.4.2,
@@ -162,7 +160,7 @@ This is a very common thing to see as a Ruby developer, and luckily, there's an
 easy fix if you do happen to see this error message. Just follow the
 instructions, and "prepend" `bundle exec` to your rake command:
 
-```sh
+```console
 $ bundle exec rake greeting:hello
 hello from Rake!
 ```
@@ -201,7 +199,7 @@ few common database-related tasks.
 We'll call this task `migrate`, because it is a convention to say we are
 "migrating" our database by applying SQL statements that alter that database.
 
-```ruby
+```rb
 namespace :db do
   desc 'migrate changes to your database'
   task migrate: :environment do
@@ -216,7 +214,7 @@ But, if we run `rake db:migrate` now, we're going to hit an error.
 
 You might be wondering what is happening with this snippet:
 
-```ruby
+```rb
 task migrate: :environment do
 ```
 
@@ -228,7 +226,7 @@ run before the `migrate` task is run.
 
 Let's check out that `environment` task:
 
-```ruby
+```rb
 # in Rakefile
 
 task :environment do
@@ -251,7 +249,7 @@ class.
 If you open up `db/seeds.rb` you'll see the following code to create a few
 students:
 
-```ruby
+```rb
 Student.create(name: "Melissa", grade: "10th")
 Student.create(name: "April", grade: "10th")
 Student.create(name: "Luke", grade: "9th")
@@ -262,7 +260,7 @@ Student.create(name: "Sarah", grade: "10th")
 Then, we define a rake task that executes the code in this file. This task will
 also be namespaced under `db`:
 
-```ruby
+```rb
 namespace :db do
 
   # ...
@@ -290,7 +288,7 @@ dependent on our `environment` task so that the `Student` class and the database
 connection load first. Note that this class is _not_ namespaced under `:db`,
 since we'll use it as a more general-purpose tool.
 
-```ruby
+```rb
 desc 'drop into the Pry console'
 task console: :environment do
   Pry.start
@@ -300,13 +298,13 @@ end
 Now, provided we ran `rake db:migrate` and `rake db:seed`, we can drop into our
 console with the following:
 
-```sh
-bundle exec rake console
+```console
+$ bundle exec rake console
 ```
 
-This should bring up the following in your terminal:
+This should bring you into a Pry session in your terminal:
 
-```sh
+```console
 [1] pry(main)>
 ```
 
