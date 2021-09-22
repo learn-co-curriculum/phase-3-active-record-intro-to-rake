@@ -22,23 +22,21 @@ easy way to run common tasks from the command line.
 ## Why Rake?
 
 Every program has some tasks that must be executed now and then. For example,
-the task of creating a database table, the task of making or maintaining certain
-files. Before Rake was invented, we would have to write standalone bash scripts
-that accomplish these tasks, or we would have to make potentially confusing and
-arbitrary decisions about what segment of our Ruby program would be responsible
-for executing these tasks.
+the task of creating a database table, or the task of making or maintaining
+certain files. Before Rake was invented, we would either have to write
+standalone bash scripts to accomplish these tasks, or each developer would
+have to make their own decisions about what segment of their Ruby program would
+be responsible for executing these tasks.
 
-Writing scripts in bash is tough, and bash just isn't as powerful as Ruby. On
-the other hand, for each developer to make his or her own decisions about where
-to define and execute certain common tasks related to databases or file
-maintenance is confusing.
-
-Rake provides us a standard, conventional way to define and execute such tasks
-using Ruby.
+Writing scripts in bash is tough, plus bash just isn't as powerful as Ruby. And
+for each developer to make their own somewhat arbitrary decisions about where to
+define and execute certain common tasks related to databases or file maintenance
+would be confusing. Luckily, Rake provides us a standard, conventional way to
+define and execute such tasks using Ruby.
 
 ## Where did Rake Come From?
 
-In fact, the C community was the first to implement the pattern of writing all
+The C community was the first to implement the pattern of writing all
 their recurring system maintenance tasks in a separate file. They called this
 file the MakeFile because it was generally used to gather all of the source
 files and make it into one compiled executable file.
@@ -177,7 +175,7 @@ We suggest you get in the habit of using `bundle exec` with your Rake commands.
 
 As we move towards developing Sinatra and Rails web applications, you'll begin
 to use some common Rake tasks that handle certain database-related jobs. We'll
-be using a gem to setup some of these tasks for us, but it's still helpful to
+be using a gem to set up some of these tasks for us, but it's still helpful to
 get an understanding of the syntax of Rake tasks so you can create your own.
 
 ### `rake db:migrate`
@@ -208,7 +206,12 @@ namespace :db do
 end
 ```
 
-But, if we run `rake db:migrate` now, we're going to hit an error.
+But, if we run `rake db:migrate` now, we're going to hit an error:
+
+```txt
+rake aborted!
+Don't know how to build task 'environment' (See the list of available tasks with `rake --tasks`)
+```
 
 #### Task Dependency
 
@@ -218,29 +221,28 @@ You might be wondering what is happening with this snippet:
 task migrate: :environment do
 ```
 
-This creates a _task dependency_. Since our `Student.create_table` code would
-require access to the `config/environment.rb` file (which is where the student
-class and database are loaded), we need to give our task access to this file. In
-order to do that, we need to define yet another Rake task that we can tell to
-run before the `migrate` task is run.
+This creates a _task dependency_. This line of code tells Rake that it needs to
+run the `environment` task before it can run `migrate`. The issue is that our
+`Student.create_table` code needs access to the `config/environment.rb` file
+because that's where the student class and database are loaded. Before we can
+migrate, we need to give our task access to this file, and the `environment`
+task is what will do this for us. But we haven't created the `environment` task
+yet, so let's do that.
 
-Let's check out that `environment` task:
+Add the following code to the `Rakefile`:
 
 ```rb
-# in Rakefile
-
 task :environment do
   require_relative './config/environment'
 end
 ```
 
-After adding our environment task, running `bundle exec rake db:migrate` should
-create our students table.
+Now, running `bundle exec rake db:migrate` should create our students table.
 
 ### `rake db:seed`
 
 Another task you will become familiar with is the `seed` task. This task is
-responsible for "seeding" our database with some dummy data.
+responsible for "seeding" our database with some placeholder data.
 
 The conventional way to seed your database is to have a file in the `db`
 directory, `db/seeds.rb`, that contains some code to create instances of your
