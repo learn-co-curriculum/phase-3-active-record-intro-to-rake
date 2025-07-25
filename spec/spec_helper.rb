@@ -2,7 +2,7 @@ require_relative '../config/environment'
 
 RSpec.configure do |config|
   config.color = true
-  config.order = 'default'
+  config.order = 'defined'
 end
 
 def clear_database
