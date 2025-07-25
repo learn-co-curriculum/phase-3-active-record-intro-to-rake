@@ -15,7 +15,7 @@ describe "Rakefile" do
 
     describe 'greeting:hola' do
       it "should print out 'hola desde Rake!'" do
-        expect($stdout).to receive(:puts).with("hola de Rake!")
+        expect($stdout).to receive(:puts).with("hola desde Rake!")
         Rake::Task["greeting:hola"].invoke
       end
     end
